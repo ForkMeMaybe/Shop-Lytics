@@ -13,6 +13,7 @@ django-cors-headers = "*"
 requests = "*"
 django-templated-mail = "*"
 dj-database-url = "*"
+gunicorn = "*"
 
 [dev-packages]
 
