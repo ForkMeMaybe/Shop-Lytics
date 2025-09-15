@@ -25,6 +25,8 @@ CORS_ALLOWED_ORIGINS = [
 
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
+DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL")
+
 DEBUG = os.environ.get("DEBUG")
 
 DATABASES = {"default": {dj_database_url.config()}}

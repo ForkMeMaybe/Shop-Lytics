@@ -153,5 +153,3 @@ DJOSER = {
 SITE_DOMAIN = "shop-lytics-frontend.onrender.com"
 DOMAIN = SITE_DOMAIN
 SITE_NAME = "Shop Lytics"
-
-DEFAULT_FROM_EMAIL = "beast41514@gmail.com"
