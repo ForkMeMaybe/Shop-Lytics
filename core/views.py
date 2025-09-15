@@ -99,7 +99,7 @@ def shopify_auth(request):
 
     scopes = ["read_products", "read_orders", "read_customers"]
     redirect_uri = f"https://{request.get_host()}/auth/shopify/callback/"
-    auth_url = f"https://{shop}/admin/oauth/authorize?client_id={settings.CLIENT_ID}&scope={','.join(scopes)}&redirect_uri={redirect_uri}"
+    auth_url = f"https://{shop}/admin/oauth/authorize?client_id={settings.SHOPIFY_API_KEY}&scope={','.join(scopes)}&redirect_uri={redirect_uri}"
     return redirect(auth_url)
 
 
@@ -124,8 +124,8 @@ def shopify_callback(request):
 
     token_url = f"https://{shop}/admin/oauth/access_token"
     payload = {
-        "client_id": settings.CLIENT_ID,
-        "client_secret": settings.CLIENT_SECRET,
+        "client_id": settings.SHOPIFY_API_KEY,
+        "client_secret": settings.SHOPIFY_API_SECRET,
         "code": code,
     }
     response = requests.post(token_url, json=payload)
@@ -175,4 +175,4 @@ def shopify_callback(request):
         },
     )
 
-    return redirect("/")
+    return redirect("https://shop-lytics-frontend.onrender.com")
