@@ -1,9 +1,6 @@
 from .common import *
 import dj_database_url
 import os
-import logging
-
-logging.basicConfig(level=logging.DEBUG)
 
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
 
