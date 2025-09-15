@@ -29,7 +29,7 @@ DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL")
 
 DEBUG = os.environ.get("DEBUG")
 
-DATABASES = {"default": {dj_database_url.config()}}
+DATABASES = {"default": dj_database_url.config()}
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
