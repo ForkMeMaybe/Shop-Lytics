@@ -20,7 +20,7 @@ BASE_URL = os.environ.get("BASE_URL")
 CLIENT_SECRET = os.environ.get("CLIENT_SECRET")
 
 CORS_ALLOWED_ORIGINS = [
-    "null",
+    "https://shop-lytics-frontend.onrender.com",
 ]
 
 SECRET_KEY = os.environ.get("SECRET_KEY")
