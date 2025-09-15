@@ -117,7 +117,7 @@ def shopify_callback(request):
     }
     message = "&".join([f"{k}={v}" for k, v in sorted(params.items())])
     digest = hmac.new(
-        settings.CLIENT_SECRET.encode(), message.encode(), hashlib.sha256
+        settings.SHOPIFY_API_SECRET.encode(), message.encode(), hashlib.sha256
     ).hexdigest()
     if not hmac.compare_digest(digest, hmac_param):
         return render(request, "error.html", {"message": "Invalid HMAC."})
