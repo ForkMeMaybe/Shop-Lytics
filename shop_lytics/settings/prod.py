@@ -2,7 +2,7 @@ from .common import *
 import dj_database_url
 import os
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
 
 REDIS_URL = os.environ.get("REDIS_URL")
 CACHES = {
