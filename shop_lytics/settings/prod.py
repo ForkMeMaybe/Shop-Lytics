@@ -15,9 +15,9 @@ CACHES = {
     }
 }
 
-CLIENT_ID = os.environ.get("CLIENT_ID")
+SHOPIFY_API_KEY = os.environ.get("SHOPIFY_API_KEY")
 BASE_URL = os.environ.get("BASE_URL")
-CLIENT_SECRET = os.environ.get("CLIENT_SECRET")
+SHOPIFY_API_SECRET = os.environ.get("SHOPIFY_API_SECRET")
 
 CORS_ALLOWED_ORIGINS = [
     "https://shop-lytics-frontend.onrender.com",
