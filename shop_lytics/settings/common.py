@@ -143,7 +143,7 @@ DJOSER = {
     "PASSWORD_CHANGED_EMAIL_CONFIRMATION": True,
     "SEND_CONFIRMATION_EMAIL": False,
     "SET_PASSWORD_RETYPE": True,
-    "PASSWORD_RESET_CONFIRM_URL": "password/reset/confirm/{uid}/{token}",
+    "PASSWORD_RESET_CONFIRM_URL": "#password/reset/confirm/{uid}/{token}",
     "SERIALIZERS": {
         "user_create_password_retype": "core.serializers.UserCreateSerializer",
         "current_user": "core.serializers.UserSerializer",
