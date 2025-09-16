@@ -21,9 +21,7 @@ from .serializers import (
     WebhookSubscriptionSerializer,
 )
 from django.db import transaction
-from .utils import subscribe_to_webhooks
-from .tasks import fetch_existing_data_task
-from .tasks import fetch_existing_data_task
+from .tasks import fetch_existing_data_task, subscribe_to_webhooks_task
 
 
 class TenantListCreateView(generics.ListCreateAPIView):
@@ -32,7 +30,7 @@ class TenantListCreateView(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         tenant = serializer.save()
-        subscribe_to_webhooks(tenant)
+        subscribe_to_webhooks_task.delay(tenant.id)
         fetch_existing_data_task.delay(tenant.id)
 
 
@@ -308,3 +306,4 @@ class WebhookSubscriptionDetailView(generics.RetrieveUpdateDestroyAPIView):
         if tenant:
             return WebhookSubscription.objects.filter(tenant=tenant)
         return WebhookSubscription.objects.none()
+
