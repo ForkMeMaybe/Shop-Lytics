@@ -146,9 +146,7 @@ Shop-Lytics is a web application for Shopify store analytics.
 
 ### Limitations
 
-1.  No logging for webhooks.
-2.  `access_token` is not stored in encrypted form.
-3.  When a user registers on our site for the first time, we are not fetching their existing data from Shopify.
+1.  `access_token` is not stored in encrypted form.
 
 ### Assumptions
 
