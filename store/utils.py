@@ -165,19 +165,23 @@ def fetch_orders(tenant):
                             "updated_at": customer_data.get("updated_at"),
                         },
                     )
-                order, _ = Order.objects.update_or_create(
-                    tenant=tenant,
-                    shopify_order_id=order_data.get("id"),
-                    defaults={
-                        "customer": customer,
-                        "total_price": order_data.get("total_price"),
-                        "currency": order_data.get("currency"),
-                        "financial_status": order_data.get("financial_status"),
-                        "fulfillment_status": order_data.get("fulfillment_status"),
-                        "created_at": order_data.get("created_at"),
-                        "updated_at": order_data.get("updated_at"),
-                    },
-                )
+                try:
+                    order, _ = Order.objects.update_or_create(
+                        tenant=tenant,
+                        shopify_order_id=order_data.get("id"),
+                        defaults={
+                            "customer": customer,
+                            "total_price": order_data.get("total_price"),
+                            "currency": order_data.get("currency"),
+                            "financial_status": order_data.get("financial_status"),
+                            "fulfillment_status": order_data.get("fulfillment_status"),
+                            "created_at": order_data.get("created_at"),
+                            "updated_at": order_data.get("updated_at"),
+                        },
+                    )
+                except Exception as e:
+                    logging.error(f"Failed to save order {order_data.get('id')}: {e}")
+
                 for item_data in order_data.get("line_items", []):
                     product = Product.objects.filter(
                         shopify_product_id=item_data.get("variant_id")
