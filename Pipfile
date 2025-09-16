@@ -17,6 +17,7 @@ gunicorn = "*"
 djoser = "*"
 sendgrid = "*"
 django-sendgrid-v5 = "*"
+celery = "*"
 
 [dev-packages]
 
