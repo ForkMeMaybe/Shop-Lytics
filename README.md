@@ -1,4 +1,4 @@
-This project is part of the Xeno FDE Internship Assignment – 2025. For project status, refer to PROJECT_STATUS.md.
+This project is part of the Xeno FDE Internship Assignment – 2025.
 
 # Shop-Lytics
 
