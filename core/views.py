@@ -176,7 +176,10 @@ def shopify_callback(request):
         },
     )
 
+    print("WEBHOOKS SUBS")
     subscribe_to_webhooks_task.delay(tenant.id)
     fetch_existing_data_task.delay(tenant.id)
+    print("EXISTING DATA")
 
     return redirect("https://shop-lytics-frontend.onrender.com")
+
