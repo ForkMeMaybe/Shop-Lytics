@@ -18,8 +18,6 @@ from django.contrib.auth import login
 from django.contrib.auth import get_user_model
 from django.utils.crypto import get_random_string
 from store.tasks import fetch_existing_data_task, subscribe_to_webhooks_task
-from store.utils import fetch_existing_data
-from store.models import Tenant
 
 
 @csrf_exempt
@@ -180,9 +178,7 @@ def shopify_callback(request):
 
     print("WEBHOOKS SUBS")
     subscribe_to_webhooks_task.delay(tenant.id)
-    # fetch_existing_data_task.delay(tenant.id)
-    tenant = Tenant.objects.get(id=tenant.id)
-    fetch_existing_data(tenant)
+    fetch_existing_data_task.delay(tenant.id)
     print("EXISTING DATA")
 
     return redirect("https://shop-lytics-frontend.onrender.com")
