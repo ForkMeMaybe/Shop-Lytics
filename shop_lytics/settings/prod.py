@@ -2,7 +2,7 @@ from .common import *
 import dj_database_url
 import os
 
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split(" ")
 
 REDIS_URL = os.environ.get("REDIS_URL")
 CACHES = {
@@ -29,12 +29,16 @@ DEBUG = False
 
 DATABASES = {"default": dj_database_url.config()}
 
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "smtp.sendgrid.net"
-EMAIL_HOST_USER = "apikey"
-EMAIL_HOST_PASSWORD = os.environ.get("SEND_GRID_API_KEY")
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
+# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
+# EMAIL_HOST = "smtp.sendgrid.net"
+# EMAIL_HOST_USER = "apikey"
+# EMAIL_HOST_PASSWORD = os.environ.get("SEND_GRID_API_KEY")
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+
+SENDGRID_SANDBOX_MODE_IN_DEBUG = False
+SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY")
 
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
