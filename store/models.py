@@ -97,3 +97,17 @@ class CustomEvent(models.Model):
 
     def __str__(self):
         return f"{self.event_type} - {self.tenant.name}"
+
+
+class WebhookSubscription(models.Model):
+    tenant = models.ForeignKey(
+        Tenant, on_delete=models.CASCADE, related_name="webhooks"
+    )
+    topic = models.CharField(max_length=100)
+    address = models.URLField()
+    status = models.CharField(max_length=50)
+    last_response = models.JSONField(null=True, blank=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.tenant.shopify_domain} -> {self.topic} ({self.status})"

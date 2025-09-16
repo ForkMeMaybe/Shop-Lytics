@@ -1,5 +1,13 @@
 from rest_framework import serializers
-from .models import Tenant, Customer, Product, Order, OrderItem, CustomEvent
+from .models import (
+    Tenant,
+    Customer,
+    Product,
+    Order,
+    OrderItem,
+    CustomEvent,
+    WebhookSubscription,
+)
 
 
 class TenantSerializer(serializers.ModelSerializer):
@@ -108,3 +116,17 @@ class CustomEventSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomEvent
         fields = ["id", "tenant", "event_type", "customer", "metadata", "created_at"]
+
+
+class WebhookSubscriptionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WebhookSubscription
+        fields = [
+            "id",
+            "tenant",
+            "topic",
+            "address",
+            "status",
+            "last_response",
+            "updated_at",
+        ]

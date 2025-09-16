@@ -22,6 +22,10 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 
+CELERY_BROKER_URL = os.environ.get("REDIS_URL", "redis://localhost:6379/1")
+CELERY_ACCEPT_CONTENT = ["json"]
+CELERY_TASK_SERIALIZER = "json"
+
 DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL")
 
 DEBUG = False

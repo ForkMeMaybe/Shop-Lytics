@@ -17,6 +17,9 @@ from store.models import Tenant
 from django.contrib.auth import login
 from django.contrib.auth import get_user_model
 from django.utils.crypto import get_random_string
+from store.utils import subscribe_to_webhooks
+from store.tasks import fetch_existing_data_task
+from store.tasks import fetch_existing_data_task
 
 
 @csrf_exempt
@@ -166,7 +169,7 @@ def shopify_callback(request):
 
         login(request, user)
 
-    Tenant.objects.update_or_create(
+    tenant, _ = Tenant.objects.update_or_create(
         shopify_domain=shop,
         defaults={
             "user": user,
@@ -174,5 +177,8 @@ def shopify_callback(request):
             "access_token": access_token,
         },
     )
+
+    subscribe_to_webhooks(tenant)
+    fetch_existing_data_task.delay(tenant.id)
 
     return redirect("https://shop-lytics-frontend.onrender.com")

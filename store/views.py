@@ -1,7 +1,16 @@
 from django.utils import timezone
 from rest_framework import generics, status
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from .models import Tenant, Customer, Product, Order, OrderItem, CustomEvent
+from .models import (
+    Tenant,
+    Customer,
+    Product,
+    Order,
+    OrderItem,
+    CustomEvent,
+    WebhookSubscription,
+)
 from .serializers import (
     TenantSerializer,
     CustomerSerializer,
@@ -9,9 +18,12 @@ from .serializers import (
     OrderReadSerializer,
     OrderWriteSerializer,
     CustomEventSerializer,
+    WebhookSubscriptionSerializer,
 )
 from django.db import transaction
 from .utils import subscribe_to_webhooks
+from .tasks import fetch_existing_data_task
+from .tasks import fetch_existing_data_task
 
 
 class TenantListCreateView(generics.ListCreateAPIView):
@@ -21,6 +33,7 @@ class TenantListCreateView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         tenant = serializer.save()
         subscribe_to_webhooks(tenant)
+        fetch_existing_data_task.delay(tenant.id)
 
 
 class TenantDetailView(generics.RetrieveUpdateDestroyAPIView):
@@ -284,3 +297,14 @@ class CustomEventListCreateView(generics.ListCreateAPIView):
         return Response(
             serializer.data, status=status.HTTP_201_CREATED, headers=headers
         )
+
+
+class WebhookSubscriptionDetailView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = WebhookSubscriptionSerializer
+
+    def get_queryset(self):
+        tenant = getattr(self.request.user, "tenant", None)
+        if tenant:
+            return WebhookSubscription.objects.filter(tenant=tenant)
+        return WebhookSubscription.objects.none()
