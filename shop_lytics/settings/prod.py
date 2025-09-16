@@ -15,26 +15,28 @@ CACHES = {
     }
 }
 
-SHOPIFY_API_KEY = os.environ.get("SHOPIFY_API_KEY")
 BASE_URL = os.environ.get("BASE_URL")
-SHOPIFY_API_SECRET = os.environ.get("SHOPIFY_API_SECRET")
 
 CORS_ALLOWED_ORIGINS = [
     "https://shop-lytics-frontend.onrender.com",
 ]
 
-SECRET_KEY = os.environ.get("SECRET_KEY")
 
 DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL")
 
-DEBUG = os.environ.get("DEBUG")
+DEBUG = False
+
 
 DATABASES = {"default": dj_database_url.config()}
 
-# EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "smtp.gmail.com"
-EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
+EMAIL_HOST = "smtp.sendgrid.net"
+EMAIL_HOST_USER = "apikey"
+EMAIL_HOST_PASSWORD = os.environ.get("SEND_GRID_API_KEY")
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+SECRET_KEY = os.environ.get("SECRET_KEY")
+
+SHOPIFY_API_KEY = os.environ.get("SHOPIFY_API_KEY")
+SHOPIFY_API_SECRET = os.environ.get("SHOPIFY_API_SECRET")
