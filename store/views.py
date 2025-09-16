@@ -30,8 +30,10 @@ class TenantListCreateView(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         tenant = serializer.save()
+        print("WEBHOOK API SUBS")
         subscribe_to_webhooks_task.delay(tenant.id)
         fetch_existing_data_task.delay(tenant.id)
+        print("EXISTING DATA API")
 
 
 class TenantDetailView(generics.RetrieveUpdateDestroyAPIView):
