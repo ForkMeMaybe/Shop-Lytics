@@ -1,8 +1,8 @@
 db.sqlite3
 shop_lytics/settings/dev.py
 /frontend
-# PROJECT_STATUS.md
-# Xeno FDE Internship Assignment – 2025.pdf
+PROJECT_STATUS.md
+Xeno FDE Internship Assignment – 2025.pdf
 
 __pycache__/
 *.pyc
