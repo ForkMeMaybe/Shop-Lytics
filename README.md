@@ -1,3 +1,4 @@
+Live site at [https://shop-lytics-frontend.onrender.com](https://shop-lytics-frontend.onrender.com)
 This project is part of the Xeno FDE Internship Assignment – 2025.
 
 # Shop-Lytics
